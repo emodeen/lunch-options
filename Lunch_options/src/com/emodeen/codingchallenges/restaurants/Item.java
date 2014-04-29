@@ -3,12 +3,9 @@
  */
 package com.emodeen.codingchallenges.restaurants;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 /**
  * @author Eric
- *
+ * This class represents a food item included in a product that can be purchased.
  */
 public class Item {
 
@@ -16,10 +13,7 @@ public class Item {
 	private String name;
 	
 	/**
-	 * @param price
-	 * @param restaurantID
-	 * @param items
-	 * @param name
+	 * @param name The name of the item.
 	 */
 	Item( String name) {
 

@@ -5,14 +5,12 @@ package com.emodeen.codingchallenges.restaurants;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 /**
  * @author Eric
- *
+ * This class represents a restaurant where the products can be purchased.
  */
 public class Restaurant {
 	
@@ -23,7 +21,7 @@ public class Restaurant {
 	private List<ProductCombination> validCombinations;
 
 	/**
-	 * @param name
+	 * @param id. The restaurant id.
 	 */
 	Restaurant(String id) {
 		
@@ -36,6 +34,7 @@ public class Restaurant {
 	/**
 	 * 
 	 * @return The cheapest product combination.
+	 * @param desiredItems. The items that the customer wants to purchase.
 	 */
 	private ProductCombination findCheapestCombination( List<Item> desiredItems) {
 		
@@ -62,10 +61,10 @@ public class Restaurant {
 	}
 	
 	/**
-	 * 
-	 * @param s The string to find subsets for.
-	 * @param size The number of characters that the subsets should be.
-	 * @return Returns all combinations that contain the desired foods.
+	 * This method finds the product combinations that contain the desired foods.
+	 * @param subset A subset to find combinations of.
+	 * @param size The size of the subset to find combinations of.
+	 * @param desiredItems. The items that the customer wants to purchase.
 	 */
 	private void findValidCombinations( ProductCombination subset, int size, List<Item> desiredItems) {
 		

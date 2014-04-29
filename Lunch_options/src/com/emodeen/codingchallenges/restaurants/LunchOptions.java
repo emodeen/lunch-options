@@ -3,23 +3,15 @@
  */
 package com.emodeen.codingchallenges.restaurants;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Eric
- *
+ * This is the main class for a program that determines the best combination of products to purchase from one of the possible restaurants.
+ * The combination of products must contain the desired set of foods at the lowest cost.
  */
 public class LunchOptions {
 	
@@ -28,8 +20,6 @@ public class LunchOptions {
 	
 	
 	/**
-	 * @param restaurants
-	 * @param desiredItems
 	 */
 	LunchOptions() {
 		
@@ -39,9 +29,8 @@ public class LunchOptions {
 	}
 
 
-
 	/**
-	 * @param args
+	 * @param args args[0] is the input file, and args[1] is the output file.
 	 */
 	public static void main(String[] args) {
 
@@ -62,6 +51,10 @@ public class LunchOptions {
 		output.write( outputStr);
 	}
 	
+	/**
+	 * Read all rows from the file, storing the data in the appropriate data structures.
+	 * @param rows The rows to read.
+	 */
 	private void readRows( List<String> rows) {
 		
 		String row = null;
@@ -107,6 +100,12 @@ public class LunchOptions {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param price The price of the product.
+	 * @param restaurantID The restaurant where the product is for sale.
+	 * @param items The items in the product.
+	 */
 	private void storeRowData( BigDecimal price, String restaurantID, List<Item> items) {
 		
 		Restaurant r = getRestaurant(restaurantID);
@@ -147,9 +146,7 @@ public class LunchOptions {
 
 	/**
 	 * Calculate which restaurant offers the lowest price for the list of desired items.
-	 * @param productOptions
-	 * @param desiredItems
-	 * @return
+	 * @return A Restaurant object.
 	 */
 	private Restaurant getBestRestaurant() {
 		
@@ -179,13 +176,6 @@ public class LunchOptions {
 		return selectedRestaurant;
 	}
 	
-	/**
-	 * Check if the combo contains the desired foods.
-	 */
-	private void validateCombination() {
-		
-	}
-
 	/**
 	 * @return the restaurants
 	 */

@@ -3,6 +3,11 @@ package com.emodeen.codingchallenges.restaurants;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that represents a combination of Products.
+ * @author Eric
+ *
+ */
 public class ProductCombination {
 
 	// The products contained in the combination
@@ -36,6 +41,7 @@ public class ProductCombination {
 
 	/**
 	 * @return Returns true if the product combination contains all of the desired foods.
+	 * @param desiredItems. The items that the customer wants to have in a purchase.
 	 */
 	public boolean isValid( List<Item> desiredItems) {
 		
@@ -70,7 +76,6 @@ public class ProductCombination {
 			}
 		}
 		
-		// This boolean was initialized to true in the constructor.
 		for (int l=0; l < itemFound.length; l++) {
 			
 			if (!itemFound[l]) containsDesiredFoods = false;

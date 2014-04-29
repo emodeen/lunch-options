@@ -23,9 +23,6 @@ import java.util.List;
  */
 public class CsvFile extends File {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedReader input;
 	
@@ -37,35 +34,12 @@ public class CsvFile extends File {
 	 */
 	public CsvFile(String pathname) {
 		super(pathname);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @param uri
+	 * 
+	 * @return A list of all rows in the file.
 	 */
-	public CsvFile(URI uri) {
-		super(uri);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param parent
-	 * @param child
-	 */
-	public CsvFile(String parent, String child) {
-		super(parent, child);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param parent
-	 * @param child
-	 */
-	public CsvFile(File parent, String child) {
-		super(parent, child);
-		// TODO Auto-generated constructor stub
-	}
-
 	List<String> getRows()
 	{
 		if (this.isOK()) {
@@ -96,7 +70,7 @@ public class CsvFile extends File {
 	
 	/**
 	 * 
-	 * @return This method returns true if the file is a regular file and it can be read.
+	 * Reads all lines in the file, storing the data in the List of rows.
 	 */
 	private void read() {
 		

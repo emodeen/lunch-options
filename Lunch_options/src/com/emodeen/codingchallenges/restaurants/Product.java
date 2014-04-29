@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Eric
- *
+ * This class represents a product for sale in a restaurant.
  */
 public class Product {
 	
@@ -18,7 +18,6 @@ public class Product {
 	
 	/**
 	 * @param price
-	 * @param restaurantID
 	 * @param items
 	 */
 	Product(BigDecimal price, List<Item> items) {
