@@ -86,7 +86,7 @@ public class LunchOptions {
 				// Store remaining tokens in list of items for a product.
 				for (int j=2; j < rowTokens.length; j++) {
 					
-					productItems.add( new Item(rowTokens[j]));
+					productItems.add( new Item(rowTokens[j].replace("\"", "")));
 				}
 				
 				storeRowData( price, restaurantID, productItems);

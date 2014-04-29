@@ -44,6 +44,8 @@ public class ProductCombination {
 		Item desiredItem = null;
 		boolean [] itemFound = new boolean[desiredItems.size()];
 		
+		containsDesiredFoods = true;
+		
 		// For each product in the combination.
 		for (int i=0; i < products.size(); i++) {
 

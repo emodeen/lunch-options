@@ -22,10 +22,6 @@ public class Restaurant {
 	private ProductCombination bestCombination;
 	private List<ProductCombination> validCombinations;
 
-
-	// List of subsets containing all desired foods
-	private List<List<Product>> validSubsets;
-	
 	/**
 	 * @param name
 	 */
@@ -93,32 +89,6 @@ public class Restaurant {
 		}
 	}
 
-	/**
-	 * Examine each subset to see if they contain the desired combination of foods.
-	 * @param numProducts
-	 * @return A list of the subsets that contain the desired foods.
-	 */
-	private List<List<Product>> findValidSubsets( int numProducts) {
-		
-		List<List<Product>> validSubsets = new ArrayList<List<Product>>();
-		List<Product> subset = null;
-		Product prod = null;
-		
-		// for each subset, see if it contains all desired foods.
-		for (int i=0; i < validSubsets.size(); i++) {
-			
-			subset = validSubsets.get(i);
-			
-			for (int j=0; j < subset.size(); j++) {
-				prod = subset.get(j);
-				
-				//for (int k=0; k < prod)
-			}
-		}
-		
-		return validSubsets;
-	}
-	
 	public void addProduct( BigDecimal price, List<Item> items) {
 		
 		Product p = new Product( price, items);
