@@ -71,7 +71,7 @@ public class LunchOptions {
 			if (i != (rows.size()-1)) {
 				
 				rowTokens = row.split(",");
-				restaurantID = rowTokens[0];
+				restaurantID = rowTokens[0].replace("\"", "");
 				price = new BigDecimal(rowTokens[1]);
 				productItems = new ArrayList<Item>();
 				
@@ -111,10 +111,10 @@ public class LunchOptions {
 		
 		if ( r == null) {
 			r = new Restaurant(restaurantID);
-			restaurants.add( r);
 		}
 		
 		r.addProduct( price, items);
+		restaurants.add( r);
 	}
 	
 	/**
