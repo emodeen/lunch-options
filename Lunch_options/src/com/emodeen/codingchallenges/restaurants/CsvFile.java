@@ -57,7 +57,7 @@ public class CsvFile extends File {
 	void write( String s) {
 
         try {
-            File file = new File("output.csv");
+            File file = new File(this.getAbsolutePath());
             BufferedWriter output = new BufferedWriter(new FileWriter(file));
             output.write(s);
             output.close();
