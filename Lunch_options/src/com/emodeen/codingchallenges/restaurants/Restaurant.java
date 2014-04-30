@@ -15,10 +15,8 @@ import java.util.List;
 public class Restaurant {
 	
 	// All products on the menu.
-	private ProductCombination menu;
+	private List<Product> menu;
 	private String id;
-	private ProductCombination bestCombination;
-	private List<ProductCombination> validCombinations;
 
 	/**
 	 * @param id. The restaurant id.
@@ -26,73 +24,80 @@ public class Restaurant {
 	Restaurant(String id) {
 		
 		this.id = id;
-		menu = new ProductCombination();
-		validCombinations = new ArrayList<ProductCombination>();
 	}
 
-
 	/**
-	 * 
-	 * @return The cheapest product combination.
-	 * @param desiredItems. The items that the customer wants to purchase.
+	 * Get all product combinations from this restaurant's menu.
+	 * @return
 	 */
-	private ProductCombination findCheapestCombination( List<Item> desiredItems) {
+	public List<ProductCombination> getCombinations() {
 		
-		ProductCombination cheapestCombination = null;
-		ProductCombination tempMenu = menu;
-		int lowestPrice = -1;
+		List<ProductCombination> combinations = new ArrayList<ProductCombination>();
+		List<Product> tempProds = null;
+		List<Item> items = new ArrayList();
+		items.add( new Item("eric"));
+		Product p = new Product( new BigDecimal(4), items);
+		tempProds.add(p);
 		
-		findValidCombinations( tempMenu, menu.getProducts().size(), desiredItems);
-	
-		for (int i=0; i < validCombinations.size(); i++) {
-
-			// Initialize lowest price
-			if (lowestPrice < 1) {
-				lowestPrice = validCombinations.get(i).getTotalPrice();
-			}
-			
-			if (validCombinations.get(i).getTotalPrice() < lowestPrice) {
-				lowestPrice = validCombinations.get(i).getTotalPrice();
-				cheapestCombination = validCombinations.get(i);
-			}
-		}
+		ProductCombination example = new ProductCombination( tempProds, 10, "arbys");
 		
-		return cheapestCombination;
+		combinations.add( example);
+		
+		//getSubsets( menu);
+		
+		return combinations;
 	}
 	
-	/**
-	 * This method finds the product combinations that contain the desired foods.
-	 * @param subset A subset to find combinations of.
-	 * @param size The size of the subset to find combinations of.
-	 * @param desiredItems. The items that the customer wants to purchase.
-	 */
-	private void findValidCombinations( ProductCombination subset, int size, List<Item> desiredItems) {
+	private void getSubsets( List<Product> s) {
 		
-		ProductCombination tempCombo = subset;
+		System.out.println(s);
 		
-		if (subset.isValid(desiredItems)) {
-			
-			validCombinations.add( subset);
-		}
-		
-		// Base case: if the subset has only only product
-		if (subset.getProducts().size() == 1) {
+		// Base case: if the string has one letter, no more subsets
+		if (s.size() == 1) {
 			return;
 		}
 		
-		for (int i=0; i < subset.getProducts().size(); i++) {
-		
-			tempCombo.getProducts().remove(i);
+		/*
+		for (int i=0; i < s.length(); i++) {
 			
-			findValidCombinations( tempCombo, size-1, desiredItems);
+			getSubsets( new StringBuilder(s).deleteCharAt(i).toString());
+		}
+		*/
+	}
+	
+	/**
+	 * Recursive function that returns a subset of products.
+	 * @param A list of products to divide into subsets.
+	 * @return
+	 
+	private List<Product> getSubsets( int subsetSize) {
+		
+		List<Product> tempSet = products;
+		
+		// Base case: if the subset only has one product.
+		if ( products.size() == 1) {
+			return products;
+		}
+		
+		else {
+		
+			// Recursion: Remove products from the subset one at a time.
+			for (int i=0; i < products.size(); i++) {
+			
+				tempSet.remove(i);
+				
+				return getSubsets();
+			}
 		}
 	}
+	**/
+
 
 	public void addProduct( BigDecimal price, List<Item> items) {
 		
 		Product p = new Product( price, items);
 		
-		menu.getProducts().add( p);
+		menu.add( p);
 	}
 
 	/**
@@ -109,25 +114,4 @@ public class Restaurant {
 		this.id = id;
 	}
 	
-	/**
-	 * @return the bestCombination
-	 */
-	public ProductCombination getBestCombination( List<Item> desiredItems) {
-		
-		if (bestCombination == null) {
-			
-			bestCombination = findCheapestCombination( desiredItems);
-		}
-		
-		return bestCombination;
-	}
-
-
-	/**
-	 * @param bestCombination the bestCombination to set
-	 */
-	public void setBestCombination(ProductCombination bestCombination) {
-		this.bestCombination = bestCombination;
-	}
-
 }

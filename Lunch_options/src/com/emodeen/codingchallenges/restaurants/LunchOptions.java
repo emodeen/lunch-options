@@ -40,12 +40,11 @@ public class LunchOptions {
 		
 		lo.readRows(rows);
 		
-		// The restaurant with the best deal.
-		Restaurant rest = lo.getBestRestaurant();
+		List<ProductCombination> allCombinations = lo.getAllProductCombinations();
+		List<ProductCombination> validDeals = lo.getValidDeals( allCombinations);
+		ProductCombination bestDeal = lo.getBestDeal( validDeals);
 		
-		int bestPrice = rest.getBestCombination( lo.getDesiredItems()).getTotalPrice();
-		String restID = rest.getId();
-		String outputStr = new StringBuffer(restID).append(",").append(bestPrice).toString();
+		String outputStr = new StringBuffer( bestDeal.getRestaurantID()).append(",").append( bestDeal.getTotalPrice()).toString();
 		
 		CsvFile output = new CsvFile( args[1]);
 		output.write( outputStr);
@@ -145,9 +144,153 @@ public class LunchOptions {
 	}
 
 	/**
+	 * 
+	 * @return The cheapest product combination among all restaurants.
+	 * @param desiredItems. The items that the customer wants to purchase.
+	 */
+	private ProductCombination getBestDeal( List<ProductCombination> validDeals) {
+		
+		ProductCombination bestDeal = null;
+		
+		int lowestPrice = -1;
+			
+		for (int i=0; i < validDeals.size(); i++) {
+
+			// Initialize lowest price
+			if (lowestPrice < 1) {
+				lowestPrice = validDeals.get(i).getTotalPrice();
+			}
+				
+			if (validDeals.get(i).getTotalPrice() < lowestPrice) {
+				lowestPrice = validDeals.get(i).getTotalPrice();
+				bestDeal = validDeals.get(i);
+			}
+		}
+		
+		return bestDeal;
+	}
+	
+	/**
+	 * Reduce the list of all combinations down to the combinations that contain all desired foods.
+	 */
+	private List<ProductCombination> getValidDeals( List<ProductCombination> allCombinations) {
+		
+		List<ProductCombination> validDeals = new ArrayList<ProductCombination>();
+
+		Product prod = null;
+		ProductCombination tempCombo = null;
+		Item item = null;
+		Item desiredItem = null;
+		boolean [] itemFound = new boolean[desiredItems.size()];
+		boolean containsDesiredFoods = true;
+		
+		// For each product combination
+		for (int h=0; h < allCombinations.size(); h++) {
+		
+			containsDesiredFoods = true;
+			tempCombo = allCombinations.get(h);
+			
+			// For each product in the combination.
+			for (int i=0; i < tempCombo.getProducts().size(); i++) {
+
+				// A single product
+				prod = tempCombo.getProducts().get(i);
+				
+				// For each of the desired items
+				for (int j=0; j < desiredItems.size(); j++) {
+					
+					// For each item in the product
+					for (int k=0; k < prod.getItems().size(); k++) {
+						
+						// Compare the item to the desired food.
+						item = prod.getItems().get(k);
+						desiredItem = desiredItems.get(j);
+						
+						if ( item.getFoodType() == desiredItem.getFoodType()) {
+							itemFound[j] = true;
+							break;
+						}
+					}
+				}
+			}
+			
+			// If all items found, add combination to validDeals.
+			for (int l=0; l < itemFound.length; l++) {
+				
+				if (!itemFound[l]) containsDesiredFoods = false;
+				break;
+			}
+			
+			if (containsDesiredFoods) {
+				validDeals.add( tempCombo);
+			}
+		}
+			
+		return validDeals;
+	}
+	
+	/**
+	 * 
+	 * @return All product combinations among all restaurants.
+	 * @param desiredItems. The items that the customer wants to purchase.
+	 */
+	private List<ProductCombination> getAllProductCombinations() {
+		
+		List<ProductCombination> allCombinations = new ArrayList<ProductCombination>();
+		
+		// For each restaurant, get all product combinations.
+		for (int i=0; i < restaurants.size(); i++) {
+			
+			List<ProductCombination> combinations = restaurants.get(i).getCombinations();
+			
+			// Copy all combinations from the restaurant into allCombinations.
+			for (int j=0; j < combinations.size(); j++) {
+				
+				allCombinations.add( combinations.get(j));
+			}
+		}
+		
+		return allCombinations;
+	}	
+	
+	/**
+	 * TODO: Change this method to return a List of valid combinations.
+	 * 
+	 * 
+	 * This method finds the product combinations that contain the desired foods.
+	 * @param combination A combination from which to find smaller sets of combinations recursively.
+	 * @param size The size of the subset to find combinations of.
+	 * @param desiredItems. The items that the customer wants to purchase.
+	private List<ProductCombination> findValidCombinations( ProductCombination combination) {
+		
+		ProductCombination tempCombo = combination;
+		ProductCombination validCombinations = null;
+		
+		if (combination.isValid(desiredItems)) {
+			
+			validCombinations.add( combination);
+		}
+		
+		// Base case: if the subset has only only product
+		if (combination.getProducts().size() == 1) {
+			return;
+		}
+		
+		for (int i=0; i < combination.getProducts().size(); i++) {
+		
+			tempCombo.getProducts().remove(i);
+			
+			findValidCombinations( tempCombo, desiredItems);
+		}
+		
+		return validCombinations;
+	}
+	*/
+	
+	/**
 	 * Calculate which restaurant offers the lowest price for the list of desired items.
 	 * @return A Restaurant object.
-	 */
+	 
 	private Restaurant getBestRestaurant() {
 		
 		Restaurant selectedRestaurant = null;

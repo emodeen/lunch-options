@@ -13,18 +13,38 @@ public class ProductCombination {
 	// The products contained in the combination
 	private List<Product> products;
 	
-	// Whether the combination contains all of the desired foods.
-	private boolean containsDesiredFoods;
-	
 	// The total of the prices for the products in the combination.
 	private int totalPrice;
 	
+	private String restaurantID;
+	
+	
+	/**
+	 * @return the restaurantID
+	 */
+	public String getRestaurantID() {
+		return restaurantID;
+	}
+
+	/**
+	 * @param restaurantID the restaurantID to set
+	 */
+	public void setRestaurantID(String restaurantID) {
+		this.restaurantID = restaurantID;
+	}
+
 	public ProductCombination() {
 
 		products = new ArrayList<Product>();
-		containsDesiredFoods = true;
 	}
+	
+	public ProductCombination( List<Product> prods, int price, String id) {
 
+		products = prods;
+		totalPrice = price;
+		restaurantID = id;
+	}
+	
 	/**
 	 * @return the products
 	 */
@@ -39,51 +59,7 @@ public class ProductCombination {
 		this.products = products;
 	}
 
-	/**
-	 * @return Returns true if the product combination contains all of the desired foods.
-	 * @param desiredItems. The items that the customer wants to have in a purchase.
-	 */
-	public boolean isValid( List<Item> desiredItems) {
-		
-		Product prod = null;
-		Item item = null;
-		Item desiredItem = null;
-		boolean [] itemFound = new boolean[desiredItems.size()];
-		
-		containsDesiredFoods = true;
-		
-		// For each product in the combination.
-		for (int i=0; i < products.size(); i++) {
 
-			// A single product
-			prod = products.get(i);
-			
-			// For each of the desired items
-			for (int j=0; j < desiredItems.size(); j++) {
-				
-				// Check if any desired items are contained in the item.
-				for (int k=0; k < prod.getItems().size(); k++) {
-					
-					// Compare the item to the desired food.
-					item = prod.getItems().get(k);
-					desiredItem = desiredItems.get(j);
-					
-					if ( item.getFoodType() == desiredItem.getFoodType()) {
-						itemFound[j] = true;
-						break;
-					}
-				}
-			}
-		}
-		
-		for (int l=0; l < itemFound.length; l++) {
-			
-			if (!itemFound[l]) containsDesiredFoods = false;
-			break;
-		}
-		
-		return containsDesiredFoods;
-	}
 
 	/**
 	 * @return the totalPrice
