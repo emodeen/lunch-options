@@ -24,6 +24,7 @@ public class Restaurant {
 	Restaurant(String id) {
 		
 		this.id = id;
+		this.menu = new ArrayList<Product>();
 	}
 
 	/**
