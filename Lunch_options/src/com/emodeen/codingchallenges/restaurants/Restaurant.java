@@ -31,6 +31,65 @@ public class Restaurant {
 	 * Get all product combinations from this restaurant's menu.
 	 * @return
 	 */
+	public List<ProductCombination> getCombinations2() {
+		
+		List<ProductCombination> combinations = new ArrayList<ProductCombination>();
+		
+		List<Product> prods = menu;
+		
+		getSubsets( prods, 1, combinations);
+		
+		
+		
+		return combinations;
+	}
+	
+	/**
+	 * 
+	 * @param s The string to find subsets for.
+	 * @param size The number of characters that the subsets should be.
+	 * @return Returns a subset of a given size.
+	 */
+	private void getSubsets( List<Product> prods, int size, List<ProductCombination> combos) {
+		
+		//System.out.println(s);
+		combos.add( new ProductCombination(prods, 10, this.id));
+		List<Product> tempProds = prods;
+		
+		// Base case: if a subset has only one product.
+		if (tempProds.size() == 1) {
+			return;
+		}
+		
+		for (int i=0; i < tempProds.size(); i++) {
+			
+			tempProds.remove(i);
+			getSubsets( tempProds, size-1, combos);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Get all product combinations from this restaurant's menu.
+	 * @return
+	 */
 	public List<ProductCombination> getCombinations() {
 		
 		List<ProductCombination> combinations = new ArrayList<ProductCombination>();
@@ -53,22 +112,6 @@ public class Restaurant {
 		return combinations;
 	}
 	
-	private void getSubsets( List<Product> s) {
-		
-		System.out.println(s);
-		
-		// Base case: if the string has one letter, no more subsets
-		if (s.size() == 1) {
-			return;
-		}
-		
-		/*
-		for (int i=0; i < s.length(); i++) {
-			
-			getSubsets( new StringBuilder(s).deleteCharAt(i).toString());
-		}
-		*/
-	}
 	
 	/**
 	 * Recursive function that returns a subset of products.

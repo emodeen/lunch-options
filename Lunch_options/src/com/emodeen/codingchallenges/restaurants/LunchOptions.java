@@ -61,6 +61,7 @@ public class LunchOptions {
 		BigDecimal price = null;
 		List<Item> productItems = null;
 		String [] rowTokens = null;
+		List<Restaurant> tempRestaurants = new ArrayList<Restaurant>();
 		
 		// For each row in the file
 		for (int i=0; i < rows.size(); i++) {
@@ -81,7 +82,9 @@ public class LunchOptions {
 					productItems.add( new Item(rowTokens[j].replace("\"", "")));
 				}
 				
-				storeRowData( price, restaurantID, productItems);
+				addToTempRestaurants( tempRestaurants, price, restaurantID, productItems);
+				
+				//storeRowData( price, restaurantID, productItems);
 			}
 			
 			// Create a list of the desired food items.
@@ -96,6 +99,35 @@ public class LunchOptions {
 					desiredItems.add( new Item(rowTokens[k].replace("\"", "")));
 				}
 			}
+		}
+		
+		// Once all rows have been traversed, add the Restaurants to the main restaurant list.
+		for (int z=0; z < tempRestaurants.size(); z++) {
+			
+			restaurants.add( tempRestaurants.get(z));
+		}
+	}
+	
+	private void addToTempRestaurants( List<Restaurant> rest, BigDecimal price, String restaurantID, List<Item> items) {
+		
+		boolean restaurantFound = false;
+
+		// See if the restaurant has already been added to temp restaurant list.
+		for (int i=0; i < rest.size(); i++) {
+			
+			if (rest.get(i).getId().equals( restaurantID)) {
+
+				restaurantFound = true;
+				rest.get(i).addProduct( price, items);
+				break;
+			}
+		}
+		
+		if (!restaurantFound) {
+			
+			Restaurant newRest = new Restaurant( restaurantID);
+			newRest.addProduct( price, items);
+			rest.add( newRest);
 		}
 	}
 	
@@ -139,6 +171,7 @@ public class LunchOptions {
 			
 			if (r.getId().equals(restID)) {
 				restaurantFound = true;
+				r = null;
 				break;
 			}
 		}
@@ -245,7 +278,7 @@ public class LunchOptions {
 		// For each restaurant, get all product combinations.
 		for (int i=0; i < restaurants.size(); i++) {
 			
-			List<ProductCombination> combinations = restaurants.get(i).getCombinations();
+			List<ProductCombination> combinations = restaurants.get(i).getCombinations2();
 			
 			// Copy all combinations from the restaurant into allCombinations.
 			for (int j=0; j < combinations.size(); j++) {
