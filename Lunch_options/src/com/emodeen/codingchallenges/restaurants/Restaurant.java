@@ -34,9 +34,13 @@ public class Restaurant {
 	public List<ProductCombination> getCombinations() {
 		
 		List<ProductCombination> combinations = new ArrayList<ProductCombination>();
-		List<Product> tempProds = null;
+		List<Product> tempProds = new ArrayList<Product>();
 		List<Item> items = new ArrayList();
-		items.add( new Item("eric"));
+		
+		items.add( new Item("burger"));
+		items.add( new Item("fries"));
+		items.add( new Item("salad"));
+		
 		Product p = new Product( new BigDecimal(4), items);
 		tempProds.add(p);
 		

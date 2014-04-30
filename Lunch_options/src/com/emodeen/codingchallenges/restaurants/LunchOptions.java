@@ -111,10 +111,13 @@ public class LunchOptions {
 		
 		if ( r == null) {
 			r = new Restaurant(restaurantID);
+			r.addProduct( price, items);
+			restaurants.add( r);
 		}
 		
-		r.addProduct( price, items);
-		restaurants.add( r);
+		else {
+			r.addProduct( price, items);
+		}
 	}
 	
 	/**
@@ -159,6 +162,7 @@ public class LunchOptions {
 			// Initialize lowest price
 			if (lowestPrice < 1) {
 				lowestPrice = validDeals.get(i).getTotalPrice();
+				bestDeal = validDeals.get(i);
 			}
 				
 			if (validDeals.get(i).getTotalPrice() < lowestPrice) {
