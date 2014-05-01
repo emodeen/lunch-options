@@ -41,6 +41,29 @@ public class LunchOptions {
 		lo.readRows(rows);
 		
 		List<ProductCombination> allCombinations = lo.getAllProductCombinations();
+
+		/*
+		for (int i=0; i < allCombinations.size(); i++) {
+			
+			List<Product> products = allCombinations.get(i).getProducts();
+
+			System.out.println("Restaurant=" + allCombinations.get(i).getRestaurantID());
+			
+			for (int j=0; j < products.size(); j++) {
+				
+				List<Item> items = products.get(j).getItems();
+
+				System.out.println("Product " + j);
+				
+				for (int k=0; k < items.size(); k++) {
+					
+					System.out.println(items.get(k).getFoodType());
+				}
+			}
+		}
+		*/
+		
+		
 		List<ProductCombination> validDeals = lo.getValidDeals( allCombinations);
 		ProductCombination bestDeal = lo.getBestDeal( validDeals);
 		

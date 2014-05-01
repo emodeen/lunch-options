@@ -25,7 +25,7 @@ public class Item {
 			break;
 		case "fries": foodType = FoodType.FRIES;
 			break;
-		case "salad": foodType = FoodType.FRIES;
+		case "salad": foodType = FoodType.SALAD;
 			break;
 		default: foodType = null;
 			break;
