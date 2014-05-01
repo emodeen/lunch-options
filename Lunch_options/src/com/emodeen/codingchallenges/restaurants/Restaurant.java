@@ -61,7 +61,7 @@ public class Restaurant {
 		
 		System.out.println(prods.size());
 		
-		combinations.add( new ProductCombination( prods, 10, this.id));
+		combinations.add( new ProductCombination( prods, this.id));
 		
 
 		
@@ -131,7 +131,7 @@ public class Restaurant {
 		Product p = new Product( new BigDecimal(4), items);
 		tempProds.add(p);
 		
-		ProductCombination example = new ProductCombination( tempProds, 10, "arbys");
+		ProductCombination example = new ProductCombination( tempProds, "arbys");
 		
 		combinations.add( example);
 		

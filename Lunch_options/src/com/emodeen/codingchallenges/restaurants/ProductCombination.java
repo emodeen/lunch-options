@@ -38,11 +38,17 @@ public class ProductCombination {
 		products = new ArrayList<Product>();
 	}
 	
-	public ProductCombination( List<Product> prods, int price, String id) {
+	public ProductCombination( List<Product> prods, String id) {
 
 		products = prods;
-		totalPrice = price;
+		totalPrice = 0;
 		restaurantID = id;
+		
+		// Calculate the total price of the combination.
+		for (int i=0; i < prods.size(); i++) {
+			
+			totalPrice += prods.get(i).getPrice().intValue();
+		}
 	}
 	
 	/**
