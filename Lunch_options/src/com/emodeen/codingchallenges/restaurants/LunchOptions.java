@@ -3,7 +3,6 @@ package com.emodeen.codingchallenges.restaurants;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,6 +13,7 @@ import java.util.List;
  */
 public class LunchOptions {
 	
+	// The restaurants to choose from.
 	private List<Restaurant> restaurants;
 
 	// The items that the customer would like to have.
@@ -257,28 +257,28 @@ public class LunchOptions {
 	/**
 	 * @return the restaurants
 	 */
-	public List<Restaurant> getRestaurants() {
+	List<Restaurant> getRestaurants() {
 		return restaurants;
 	}
 
 	/**
 	 * @param restaurants the restaurants to set
 	 */
-	public void setRestaurants(List<Restaurant> restaurants) {
+	void setRestaurants(List<Restaurant> restaurants) {
 		this.restaurants = restaurants;
 	}
 
 	/**
 	 * @return the desiredItems
 	 */
-	public List<Item> getDesiredItems() {
+	List<Item> getDesiredItems() {
 		return desiredItems;
 	}
 
 	/**
 	 * @param desiredItems the desiredItems to set
 	 */
-	public void setDesiredItems(List<Item> desiredItems) {
+	void setDesiredItems(List<Item> desiredItems) {
 		this.desiredItems = desiredItems;
 	}
 }

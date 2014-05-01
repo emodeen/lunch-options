@@ -32,7 +32,7 @@ public class CsvFile extends File {
 	/**
 	 * @param pathname
 	 */
-	public CsvFile(String pathname) {
+	CsvFile(String pathname) {
 		super(pathname);
 	}
 
@@ -59,10 +59,13 @@ public class CsvFile extends File {
 	 * @param s The string to write to the file.
 	 */
 	void write( String s) {
+		
+		File file = null;
+		BufferedWriter output = null;
 
         try {
-            File file = new File(this.getAbsolutePath());
-            BufferedWriter output = new BufferedWriter(new FileWriter(file));
+            file = new File(this.getAbsolutePath());
+            output = new BufferedWriter(new FileWriter(file));
             output.write(s);
             output.close();
         } 

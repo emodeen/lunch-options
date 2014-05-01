@@ -32,28 +32,28 @@ public class Item {
 	/**
 	 * @return the foodType
 	 */
-	public FoodType getFoodType() {
+	FoodType getFoodType() {
 		return foodType;
 	}
 
 	/**
 	 * @param foodType the foodType to set
 	 */
-	public void setFoodType(FoodType foodType) {
+	void setFoodType(FoodType foodType) {
 		this.foodType = foodType;
 	}
 
 	/**
 	 * @return the name
 	 */
-	public String getName() {
+	String getName() {
 		return name;
 	}
 
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 

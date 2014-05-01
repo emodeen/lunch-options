@@ -30,7 +30,7 @@ public class Restaurant {
 	/**
 	 * Set the product combinations for this restaurant's menu.
 	 */
-	public void setCombinations2() {
+	private void setCombinations2() {
 		
 		combinations = new ArrayList<ProductCombination>();
 		
@@ -43,7 +43,7 @@ public class Restaurant {
 	 * 
 	 * @return A list of all product combinations for the menu.
 	 */
-	public List<ProductCombination> getCombinations2() {
+	List<ProductCombination> getCombinations2() {
 		
 		if ( combinations == null) {
 			setCombinations2();
@@ -85,7 +85,7 @@ public class Restaurant {
 	 * @param price The price of the product.
 	 * @param items The items included in the product.
 	 */
-	public void addProduct( BigDecimal price, List<Item> items) {
+	void addProduct( BigDecimal price, List<Item> items) {
 		
 		Product p = new Product( price, items);
 		
@@ -95,14 +95,14 @@ public class Restaurant {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	String getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	void setId(String id) {
 		this.id = id;
 	}
 	

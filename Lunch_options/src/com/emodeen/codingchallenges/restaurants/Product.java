@@ -27,42 +27,42 @@ public class Product {
 	/**
 	 * @return the price
 	 */
-	public BigDecimal getPrice() {
+	BigDecimal getPrice() {
 		return price;
 	}
 
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(BigDecimal price) {
+	void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
 	/**
 	 * @return the productID
 	 */
-	public int getProductID() {
+	int getProductID() {
 		return productID;
 	}
 
 	/**
 	 * @param productID the productID to set
 	 */
-	public void setProductID(int productID) {
+	void setProductID(int productID) {
 		this.productID = productID;
 	}
 
 	/**
 	 * @return the items
 	 */
-	public List<Item> getItems() {
+	List<Item> getItems() {
 		return items;
 	}
 
 	/**
 	 * @param items the items to set
 	 */
-	public void setItems(List<Item> items) {
+	void setItems(List<Item> items) {
 		this.items = items;
 	}
 

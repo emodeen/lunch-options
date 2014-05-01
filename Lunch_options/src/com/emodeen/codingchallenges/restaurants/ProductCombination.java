@@ -22,18 +22,18 @@ public class ProductCombination {
 	/**
 	 * @return the restaurantID
 	 */
-	public String getRestaurantID() {
+	String getRestaurantID() {
 		return restaurantID;
 	}
 
 	/**
 	 * @param restaurantID the restaurantID to set
 	 */
-	public void setRestaurantID(String restaurantID) {
+	void setRestaurantID(String restaurantID) {
 		this.restaurantID = restaurantID;
 	}
 
-	public ProductCombination() {
+	ProductCombination() {
 
 		products = new ArrayList<Product>();
 	}
@@ -43,7 +43,7 @@ public class ProductCombination {
 	 * @param prods The products to include in the combination.
 	 * @param id The restaurant id for the product combination.
 	 */
-	public ProductCombination( List<Product> prods, String id) {
+	ProductCombination( List<Product> prods, String id) {
 
 		products = prods;
 		totalPrice = 0;
@@ -59,28 +59,28 @@ public class ProductCombination {
 	/**
 	 * @return the products
 	 */
-	public List<Product> getProducts() {
+	List<Product> getProducts() {
 		return products;
 	}
 
 	/**
 	 * @param products the products to set
 	 */
-	public void setProducts(List<Product> products) {
+	void setProducts(List<Product> products) {
 		this.products = products;
 	}
 
 	/**
 	 * @return the totalPrice
 	 */
-	public int getTotalPrice() {
+	int getTotalPrice() {
 		return totalPrice;
 	}
 
 	/**
 	 * @param totalPrice the totalPrice to set
 	 */
-	public void setTotalPrice(int totalPrice) {
+	void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
