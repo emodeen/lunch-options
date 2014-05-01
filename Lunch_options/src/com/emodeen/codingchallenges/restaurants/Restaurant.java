@@ -17,6 +17,7 @@ public class Restaurant {
 	// All products on the menu.
 	private List<Product> menu;
 	private String id;
+	private List<ProductCombination> combinations;
 
 	/**
 	 * @param id. The restaurant id.
@@ -29,17 +30,23 @@ public class Restaurant {
 
 	/**
 	 * Get all product combinations from this restaurant's menu.
+	 * TODO: Remove side effects.
 	 * @return
 	 */
-	public List<ProductCombination> getCombinations2() {
+	public void setCombinations2() {
 		
-		List<ProductCombination> combinations = new ArrayList<ProductCombination>();
+		combinations = new ArrayList<ProductCombination>();
 		
 		List<Product> prods = menu;
 		
-		getSubsets( prods, 1, combinations);
+		getSubsets( prods, 1);
+	}
+	
+	public List<ProductCombination> getCombinations2() {
 		
-		
+		if ( combinations == null) {
+			setCombinations2();
+		}
 		
 		return combinations;
 	}
@@ -50,26 +57,45 @@ public class Restaurant {
 	 * @param size The number of characters that the subsets should be.
 	 * @return Returns a subset of a given size.
 	 */
-	private void getSubsets( List<Product> prods, int size, List<ProductCombination> combos) {
+	private void getSubsets( List<Product> prods, int size) {
 		
-		//System.out.println(s);
-		combos.add( new ProductCombination(prods, 10, this.id));
-		List<Product> tempProds = prods;
+		System.out.println(prods.size());
+		
+		combinations.add( new ProductCombination( prods, 10, this.id));
+		
+		// Create a new instance to pass into the next call of the method. This new copy will be stored in the next ProductCombination created.
+		List<Product> nextProds = new ArrayList<Product>(prods);
 		
 		// Base case: if a subset has only one product.
-		if (tempProds.size() == 1) {
+		if (nextProds.size() == 1) {
 			return;
 		}
 		
-		for (int i=0; i < tempProds.size(); i++) {
-			
-			tempProds.remove(i);
-			getSubsets( tempProds, size-1, combos);
+		else {
+		
+			for (int i=0; i < nextProds.size(); i++) {
+				System.out.println("i=" + i);
+				nextProds.remove(i);
+				getSubsets( nextProds, size-1);
+			}
 		}
 	}
 	
 	
-	
+	private void getSubsets( String s, int size) {
+		
+		System.out.println(s);
+		
+		// Base case: if the string has one letter, no more subsets
+		if (s.length() == 1) {
+			return;
+		}
+		
+		for (int i=0; i < s.length(); i++) {
+			
+			getSubsets( new StringBuilder(s).deleteCharAt(i).toString(), size-1);
+		}
+	}
 	
 	
 	

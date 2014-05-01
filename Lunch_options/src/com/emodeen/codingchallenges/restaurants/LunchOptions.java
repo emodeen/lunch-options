@@ -226,6 +226,7 @@ public class LunchOptions {
 		
 			containsDesiredFoods = true;
 			tempCombo = allCombinations.get(h);
+			itemFound = new boolean[desiredItems.size()];
 			
 			// For each product in the combination.
 			for (int i=0; i < tempCombo.getProducts().size(); i++) {
