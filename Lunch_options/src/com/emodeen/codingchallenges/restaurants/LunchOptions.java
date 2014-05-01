@@ -5,6 +5,7 @@ package com.emodeen.codingchallenges.restaurants;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -241,6 +242,8 @@ public class LunchOptions {
 		ProductCombination tempCombo = null;
 		Item item = null;
 		Item desiredItem = null;
+		
+		// An array of boolean flags to show if a desired food item has been found.
 		boolean [] itemFound = new boolean[desiredItems.size()];
 		boolean containsDesiredFoods = true;
 		
@@ -249,7 +252,9 @@ public class LunchOptions {
 		
 			containsDesiredFoods = true;
 			tempCombo = allCombinations.get(h);
-			itemFound = new boolean[desiredItems.size()];
+
+			// Reset array elements before each pass
+			Arrays.fill(itemFound, false);
 			
 			// For each product in the combination.
 			for (int i=0; i < tempCombo.getProducts().size(); i++) {
@@ -260,7 +265,7 @@ public class LunchOptions {
 				// For each of the desired items
 				for (int j=0; j < desiredItems.size(); j++) {
 					
-					// For each item in the product
+					// Check to see that the product contains all desired foods.
 					for (int k=0; k < prod.getItems().size(); k++) {
 						
 						// Compare the item to the desired food.
@@ -275,13 +280,16 @@ public class LunchOptions {
 				}
 			}
 			
-			// If all items found, add combination to validDeals.
+			// If at least one desired food is not present, flag the product combination as invalid.
 			for (int l=0; l < itemFound.length; l++) {
 				
-				if (!itemFound[l]) containsDesiredFoods = false;
-				break;
+				if (!itemFound[l]) {
+					containsDesiredFoods = false;
+					break;
+				}
 			}
 			
+			// If the product combination contains all desired foods, add it to the list of valid deals.
 			if (containsDesiredFoods) {
 				validDeals.add( tempCombo);
 			}
