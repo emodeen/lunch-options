@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.emodeen.codingchallenges.restaurants;
 
 import java.math.BigDecimal;
@@ -17,6 +14,8 @@ public class Restaurant {
 	// All products on the menu.
 	private List<Product> menu;
 	private String id;
+	
+	// A list of all combinations of products on the menu.
 	private List<ProductCombination> combinations;
 
 	/**
@@ -29,9 +28,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * Get all product combinations from this restaurant's menu.
-	 * TODO: Remove side effects.
-	 * @return
+	 * Set the product combinations for this restaurant's menu.
 	 */
 	public void setCombinations2() {
 		
@@ -42,6 +39,10 @@ public class Restaurant {
 		getSubsets( prods, 1);
 	}
 	
+	/**
+	 * 
+	 * @return A list of all product combinations for the menu.
+	 */
 	public List<ProductCombination> getCombinations2() {
 		
 		if ( combinations == null) {
@@ -53,17 +54,12 @@ public class Restaurant {
 	
 	/**
 	 * 
-	 * @param s The string to find subsets for.
-	 * @param size The number of characters that the subsets should be.
-	 * @return Returns a subset of a given size.
+	 * @param prods The product set to find subsets for.
+	 * NOTE: This method is recursive and it uses side effects to accomplish its goal of adding all product combinations to the combinations field.
 	 */
 	private void getSubsets( List<Product> prods, int size) {
 		
-		System.out.println(prods.size());
-		
 		combinations.add( new ProductCombination( prods, this.id));
-		
-
 		
 		// Base case: if a subset has only one product.
 		if (prods.size() == 1) {
@@ -83,92 +79,12 @@ public class Restaurant {
 		}
 	}
 	
-	
-	private void getSubsets( String s, int size) {
-		
-		System.out.println(s);
-		
-		// Base case: if the string has one letter, no more subsets
-		if (s.length() == 1) {
-			return;
-		}
-		
-		for (int i=0; i < s.length(); i++) {
-			
-			getSubsets( new StringBuilder(s).deleteCharAt(i).toString(), size-1);
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
-	 * Get all product combinations from this restaurant's menu.
-	 * @return
+	 * This method adds a product to the menu.
+	 * @param price The price of the product.
+	 * @param items The items included in the product.
 	 */
-	public List<ProductCombination> getCombinations() {
-		
-		List<ProductCombination> combinations = new ArrayList<ProductCombination>();
-		List<Product> tempProds = new ArrayList<Product>();
-		List<Item> items = new ArrayList();
-		
-		items.add( new Item("burger"));
-		items.add( new Item("fries"));
-		items.add( new Item("salad"));
-		
-		Product p = new Product( new BigDecimal(4), items);
-		tempProds.add(p);
-		
-		ProductCombination example = new ProductCombination( tempProds, "arbys");
-		
-		combinations.add( example);
-		
-		//getSubsets( menu);
-		
-		return combinations;
-	}
-	
-	
-	/**
-	 * Recursive function that returns a subset of products.
-	 * @param A list of products to divide into subsets.
-	 * @return
-	 
-	private List<Product> getSubsets( int subsetSize) {
-		
-		List<Product> tempSet = products;
-		
-		// Base case: if the subset only has one product.
-		if ( products.size() == 1) {
-			return products;
-		}
-		
-		else {
-		
-			// Recursion: Remove products from the subset one at a time.
-			for (int i=0; i < products.size(); i++) {
-			
-				tempSet.remove(i);
-				
-				return getSubsets();
-			}
-		}
-	}
-	**/
-
-
 	public void addProduct( BigDecimal price, List<Item> items) {
 		
 		Product p = new Product( price, items);

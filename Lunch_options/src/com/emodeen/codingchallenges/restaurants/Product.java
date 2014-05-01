@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.emodeen.codingchallenges.restaurants;
 
 import java.math.BigDecimal;

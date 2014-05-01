@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.emodeen.codingchallenges.restaurants;
 
 import java.math.BigDecimal;
@@ -11,17 +8,17 @@ import java.util.List;
 
 /**
  * @author Eric
- * This is the main class for a program that determines the best combination of products to purchase from one of the possible restaurants.
- * The combination of products must contain the desired set of foods at the lowest cost.
+ * This is the main class for a program that determines the best combination of products to purchase from a set of restaurants.
+ * The combination of products must contain the desired set of items at the lowest cost.
+ * To run the program, run this class, passing the absolute path of the input file as args[0], and the absolute path of the output file as args[1].
  */
 public class LunchOptions {
 	
 	private List<Restaurant> restaurants;
+
+	// The items that the customer would like to have.
 	private List<Item> desiredItems;
 	
-	
-	/**
-	 */
 	LunchOptions() {
 		
 		super();
@@ -42,29 +39,6 @@ public class LunchOptions {
 		lo.readRows(rows);
 		
 		List<ProductCombination> allCombinations = lo.getAllProductCombinations();
-
-		/*
-		for (int i=0; i < allCombinations.size(); i++) {
-			
-			List<Product> products = allCombinations.get(i).getProducts();
-
-			System.out.println("Restaurant=" + allCombinations.get(i).getRestaurantID());
-			
-			for (int j=0; j < products.size(); j++) {
-				
-				List<Item> items = products.get(j).getItems();
-
-				System.out.println("Product " + j);
-				
-				for (int k=0; k < items.size(); k++) {
-					
-					System.out.println(items.get(k).getFoodType());
-				}
-			}
-		}
-		*/
-		
-		
 		List<ProductCombination> validDeals = lo.getValidDeals( allCombinations);
 		ProductCombination bestDeal = lo.getBestDeal( validDeals);
 		
@@ -75,7 +49,7 @@ public class LunchOptions {
 	}
 	
 	/**
-	 * Read all rows from the file, storing the data in the appropriate data structures.
+	 * Read all rows from the file, storing the data in the Restaurant objects.
 	 * @param rows The rows to read.
 	 */
 	private void readRows( List<String> rows) {
@@ -107,8 +81,6 @@ public class LunchOptions {
 				}
 				
 				addToTempRestaurants( tempRestaurants, price, restaurantID, productItems);
-				
-				//storeRowData( price, restaurantID, productItems);
 			}
 			
 			// Create a list of the desired food items.
@@ -132,6 +104,13 @@ public class LunchOptions {
 		}
 	}
 	
+	/**
+	 * Adds the data in a row to a temporary list of restaurants.
+	 * @param rest The temporary list of restaurants.
+	 * @param price The price of the product.
+	 * @param restaurantID The ID for the restaurant.
+	 * @param items The items included in the product.
+	 */
 	private void addToTempRestaurants( List<Restaurant> rest, BigDecimal price, String restaurantID, List<Item> items) {
 		
 		boolean restaurantFound = false;
@@ -157,56 +136,8 @@ public class LunchOptions {
 	
 	/**
 	 * 
-	 * @param price The price of the product.
-	 * @param restaurantID The restaurant where the product is for sale.
-	 * @param items The items in the product.
-	 */
-	private void storeRowData( BigDecimal price, String restaurantID, List<Item> items) {
-		
-		Restaurant r = getRestaurant(restaurantID);
-		
-		if ( r == null) {
-			r = new Restaurant(restaurantID);
-			r.addProduct( price, items);
-			restaurants.add( r);
-		}
-		
-		else {
-			r.addProduct( price, items);
-		}
-	}
-	
-	/**
-	 * 
-	 * @param restID
-	 * @return Returns the restaurant with the specified id.  Returns null if the restaurant is not found.
-	 */
-	private Restaurant getRestaurant( String restID) {
-		
-		boolean restaurantFound = false;
-		Restaurant r = null;
-		
-		// If not already added, add restaurant to the set.
-		Iterator<Restaurant> rIter = restaurants.iterator();
-		
-		while (!restaurantFound && rIter.hasNext()) {
-			
-			r = (Restaurant)rIter.next();
-			
-			if (r.getId().equals(restID)) {
-				restaurantFound = true;
-				r = null;
-				break;
-			}
-		}
-		
-		return r;
-	}
-
-	/**
-	 * 
-	 * @return The cheapest product combination among all restaurants.
-	 * @param desiredItems. The items that the customer wants to purchase.
+	 * @return The cheapest product combination at a single restaurant that contains all desired items.
+	 * @param validDeals. A list of the deals that contain all desired items.
 	 */
 	private ProductCombination getBestDeal( List<ProductCombination> validDeals) {
 		
@@ -233,6 +164,8 @@ public class LunchOptions {
 	
 	/**
 	 * Reduce the list of all combinations down to the combinations that contain all desired foods.
+	 * @param allCombinations All possible product combinations within each restaurant.
+	 * @return The product combinations that contain all desired foods.
 	 */
 	private List<ProductCombination> getValidDeals( List<ProductCombination> allCombinations) {
 		
@@ -300,8 +233,7 @@ public class LunchOptions {
 	
 	/**
 	 * 
-	 * @return All product combinations among all restaurants.
-	 * @param desiredItems. The items that the customer wants to purchase.
+	 * @return All product combinations within each restaurant.
 	 */
 	private List<ProductCombination> getAllProductCombinations() {
 		
@@ -321,72 +253,6 @@ public class LunchOptions {
 		
 		return allCombinations;
 	}	
-	
-	/**
-	 * TODO: Change this method to return a List of valid combinations.
-	 * 
-	 * 
-	 * This method finds the product combinations that contain the desired foods.
-	 * @param combination A combination from which to find smaller sets of combinations recursively.
-	 * @param size The size of the subset to find combinations of.
-	 * @param desiredItems. The items that the customer wants to purchase.
-	private List<ProductCombination> findValidCombinations( ProductCombination combination) {
-		
-		ProductCombination tempCombo = combination;
-		ProductCombination validCombinations = null;
-		
-		if (combination.isValid(desiredItems)) {
-			
-			validCombinations.add( combination);
-		}
-		
-		// Base case: if the subset has only only product
-		if (combination.getProducts().size() == 1) {
-			return;
-		}
-		
-		for (int i=0; i < combination.getProducts().size(); i++) {
-		
-			tempCombo.getProducts().remove(i);
-			
-			findValidCombinations( tempCombo, desiredItems);
-		}
-		
-		return validCombinations;
-	}
-	*/
-	
-	/**
-	 * Calculate which restaurant offers the lowest price for the list of desired items.
-	 * @return A Restaurant object.
-	 
-	private Restaurant getBestRestaurant() {
-		
-		Restaurant selectedRestaurant = null;
-		Restaurant r = null;
-		int lowestPrice = -1;
-		int price = 0;
-		
-		// Iterate over list of restaurants to find each one's lowest price.
-		for (int i=0; i < restaurants.size(); i++) {
-			
-			r = restaurants.get(i);
-			
-			price = r.getBestCombination( desiredItems).getTotalPrice();
-			
-			// Initialize lowest price
-			if ( lowestPrice < 0) {
-				lowestPrice = price;
-			}
-			
-			else if (price < lowestPrice) {
-				lowestPrice = price;
-				selectedRestaurant = r;
-			}
-		}
-
-		return selectedRestaurant;
-	}
 	
 	/**
 	 * @return the restaurants

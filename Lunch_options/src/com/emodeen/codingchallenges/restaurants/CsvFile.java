@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * @author Eric
- *
+ * This class encapsulates a CSV file.
  */
 public class CsvFile extends File {
 	
@@ -54,6 +54,10 @@ public class CsvFile extends File {
 		return rows;
 	}
 	
+	/**
+	 * 
+	 * @param s The string to write to the file.
+	 */
 	void write( String s) {
 
         try {

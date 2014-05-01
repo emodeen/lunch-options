@@ -13,7 +13,7 @@ public class ProductCombination {
 	// The products contained in the combination
 	private List<Product> products;
 	
-	// The total of the prices for the products in the combination.
+	// The total price for the products in the combination.
 	private int totalPrice;
 	
 	private String restaurantID;
@@ -38,6 +38,11 @@ public class ProductCombination {
 		products = new ArrayList<Product>();
 	}
 	
+	/**
+	 * 
+	 * @param prods The products to include in the combination.
+	 * @param id The restaurant id for the product combination.
+	 */
 	public ProductCombination( List<Product> prods, String id) {
 
 		products = prods;
@@ -64,8 +69,6 @@ public class ProductCombination {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-
-
 
 	/**
 	 * @return the totalPrice
