@@ -37,7 +37,7 @@ public class Restaurant {
 		
 		combinations = new ArrayList<ProductCombination>();
 		
-		List<Product> prods = menu;
+		List<Product> prods = new ArrayList<Product>(menu);
 		
 		getSubsets( prods, 1);
 	}
@@ -63,19 +63,21 @@ public class Restaurant {
 		
 		combinations.add( new ProductCombination( prods, 10, this.id));
 		
-		// Create a new instance to pass into the next call of the method. This new copy will be stored in the next ProductCombination created.
-		List<Product> nextProds = new ArrayList<Product>(prods);
+
 		
 		// Base case: if a subset has only one product.
-		if (nextProds.size() == 1) {
+		if (prods.size() == 1) {
 			return;
 		}
 		
 		else {
 		
-			for (int i=0; i < nextProds.size(); i++) {
-				System.out.println("i=" + i);
+			for (int i=0; i < prods.size(); i++) {
+
+				// Create a new instance to pass into the next call of the method. This new copy will be stored in the next ProductCombination created.
+				List<Product> nextProds = new ArrayList<Product>(prods);				
 				nextProds.remove(i);
+				
 				getSubsets( nextProds, size-1);
 			}
 		}
